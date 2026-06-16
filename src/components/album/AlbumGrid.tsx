@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { deleteCard } from '@/lib/supabase/actions';
 import SnapCard from '@/components/card/SnapCard';
 import type { SnapCard as SnapCardType } from '@/lib/types';
 
@@ -12,6 +14,17 @@ interface Props {
 
 export default function AlbumGrid({ cards, totalSlots, locale }: Props) {
   const t = useTranslations('Album');
+  const [deleting, setDeleting] = useState<string | null>(null);
+
+  async function handleDelete(cardId: string) {
+    if (!confirm('¿Eliminar esta carta de tu álbum?')) return;
+    setDeleting(cardId);
+    try {
+      await deleteCard(cardId);
+    } finally {
+      setDeleting(null);
+    }
+  }
 
   const progress = Math.round((cards.length / totalSlots) * 100);
   const emptySlots = Math.max(0, totalSlots - cards.length);
@@ -47,8 +60,18 @@ export default function AlbumGrid({ cards, totalSlots, locale }: Props) {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           {cards.map((card) => (
-            <div key={card.id} className="flex justify-center">
+            <div key={card.id} className="flex justify-center relative group">
               <SnapCard card={card} size="sm" />
+              <button
+                onClick={() => handleDelete(card.id)}
+                disabled={deleting === card.id}
+                className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/70 text-white/60 text-xs
+                           opacity-0 group-hover:opacity-100 hover:bg-red-600 hover:text-white
+                           transition-all flex items-center justify-center z-20 disabled:opacity-50"
+                title="Eliminar carta"
+              >
+                {deleting === card.id ? '…' : '✕'}
+              </button>
             </div>
           ))}
 

@@ -242,6 +242,38 @@ export async function openPack(): Promise<SnapCard[]> {
   return results;
 }
 
+export async function deleteCard(cardId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  // Remove from user's collection
+  await supabase.from('collections')
+    .delete()
+    .match({ user_id: user.id, card_id: cardId });
+
+  // If this user is also the photographer, delete the card and its storage file
+  const { data: card } = await supabase
+    .from('cards')
+    .select('photo_url, photographer_id')
+    .eq('id', cardId)
+    .single();
+
+  if (card && card.photographer_id === user.id) {
+    // Extract storage path from public URL
+    const url = card.photo_url as string;
+    const storagePrefix = '/storage/v1/object/public/card-photos/';
+    const idx = url.indexOf(storagePrefix);
+    if (idx !== -1) {
+      const filePath = url.slice(idx + storagePrefix.length);
+      await supabase.storage.from('card-photos').remove([filePath]);
+    }
+    await supabase.from('cards').delete().eq('id', cardId);
+  }
+
+  revalidatePath('/[locale]/album', 'page');
+}
+
 // ─── Marketplace ──────────────────────────────────────────────
 
 export async function buyCard(listingId: string) {

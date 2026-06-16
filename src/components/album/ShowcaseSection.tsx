@@ -125,14 +125,15 @@ export default function ShowcaseSection({ communityCards, locale }: Props) {
       {/* Header */}
       <div className="flex items-end justify-between">
         <div>
-          <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">World Cup 2026</p>
+          <p className="text-[10px] uppercase tracking-widest text-white/50 mb-1">World Cup 2026</p>
           <h2 className="text-xl sm:text-2xl font-black text-white">
             {hasCommunity ? 'Cartas de la comunidad' : 'Muestra de cartas'}
           </h2>
-          <p className="text-white/40 text-sm mt-1">
+          <p className="text-white/65 text-sm mt-1">
             {hasCommunity
               ? 'Las fotos más recientes subidas por la comunidad'
               : 'Así se ve tu álbum cuando empieces a coleccionar'}
+
           </p>
         </div>
         <a
@@ -150,7 +151,7 @@ export default function ShowcaseSection({ communityCards, locale }: Props) {
           return (
             <div key={r} className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full" style={{ background: cfg.color }} />
-              <span className="text-xs text-white/40">{cfg.label} — {cfg.chance}%</span>
+              <span className="text-xs text-white/60">{cfg.label} — {cfg.chance}%</span>
             </div>
           );
         })}
@@ -201,7 +202,7 @@ export default function ShowcaseSection({ communityCards, locale }: Props) {
       >
         <div>
           <p className="font-bold text-white text-base">Completa tu álbum</p>
-          <p className="text-white/40 text-sm mt-0.5">220 cartas para coleccionar. Abre un sobre y empieza.</p>
+          <p className="text-white/65 text-sm mt-0.5">220 cartas para coleccionar. Abre un sobre y empieza.</p>
         </div>
         <a
           href={`/${locale}/pack`}
