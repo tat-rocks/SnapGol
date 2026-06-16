@@ -118,7 +118,7 @@ export default async function HomePage({ params }: Props) {
                     <div
                       className="relative flex flex-col rounded-2xl overflow-hidden w-full"
                       style={{
-                        background: cfg.bgGradient,
+                        background: '#0d1117',
                         border: `2px solid ${cfg.color}`,
                         boxShadow: `0 0 24px ${cfg.glow}`,
                       }}
@@ -140,13 +140,14 @@ export default async function HomePage({ params }: Props) {
                     </div>
 
                     {/* Icon */}
-                    <div className="flex items-center justify-center py-8 sm:py-10">
+                    <div className="flex items-center justify-center py-8 sm:py-10"
+                      style={{ background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${cfg.glow.replace('0.', '0.07')}, transparent)` }}>
                       <StepIcon index={i} />
                     </div>
 
                     {/* Content */}
-                    <div className="border-t border-white/10 p-4 space-y-2"
-                      style={{ background: 'rgba(0,0,0,0.35)' }}>
+                    <div className="border-t p-4 space-y-2"
+                      style={{ borderColor: `${cfg.color}33` }}>
                       <RarityBadge rarity={rarity} size="sm" />
                       <h3 className="font-bold text-white text-base mt-2">{step.title}</h3>
                       <p className="text-white/65 text-sm leading-relaxed">{step.desc}</p>
