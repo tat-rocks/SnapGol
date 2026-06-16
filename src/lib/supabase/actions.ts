@@ -1,10 +1,47 @@
 'use server';
 
+import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from './server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import type { Rarity, SnapCard } from '@/lib/types';
+
+async function validateSoccerPhoto(file: File): Promise<{ ok: boolean; reason?: string }> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return { ok: true }; // skip validation if key not set
+
+  try {
+    const buffer = await file.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString('base64');
+    const mediaType = (file.type || 'image/jpeg') as 'image/jpeg' | 'image/png' | 'image/webp' | 'image/gif';
+
+    const client = new Anthropic({ apiKey });
+    const msg = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 64,
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: mediaType, data: base64 } },
+          {
+            type: 'text',
+            text: 'Is this photo related to soccer / football (players, stadium, match, ball, referee, fans at a game, pitch, goal, etc.)? Reply with exactly: YES or NO, then one short sentence reason.',
+          },
+        ],
+      }],
+    });
+
+    const text = (msg.content[0] as { type: string; text: string }).text.trim().toUpperCase();
+    if (text.startsWith('NO')) {
+      const reason = text.replace(/^NO[.,:\s-]*/i, '').trim() || 'La foto no parece ser del Mundial.';
+      return { ok: false, reason: `Solo fotos del Mundial. ${reason}` };
+    }
+    return { ok: true };
+  } catch {
+    return { ok: true }; // fail open — don't block uploads if AI is down
+  }
+}
 
 async function siteUrl() {
   const h = await headers();
@@ -64,6 +101,10 @@ export async function uploadCard(formData: FormData) {
   const file    = formData.get('photo') as File;
   const matchId = formData.get('match_id') as string;
   const caption = formData.get('caption') as string;
+
+  // 0. AI validation — check photo is soccer-related
+  const validation = await validateSoccerPhoto(file);
+  if (!validation.ok) throw new Error(validation.reason);
 
   // 1. Upload photo to Storage
   const ext      = file.name.split('.').pop();
@@ -128,7 +169,7 @@ export async function unlikeCard(cardId: string) {
 
 // ─── Packs ────────────────────────────────────────────────────
 
-export async function openPack(): Promise<SnapCard[]> {
+export async function openPack(packType: string = 'standard'): Promise<SnapCard[]> {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
@@ -154,11 +195,18 @@ export async function openPack(): Promise<SnapCard[]> {
   const pool = poolRows ?? [];
   const demoMatches = matchRows ?? [];
 
+  const PACK_ODDS: Record<string, { legendary: number; epic: number; rare: number }> = {
+    mini:     { legendary: 0,  epic: 5,  rare: 25 },
+    standard: { legendary: 3,  epic: 12, rare: 25 },
+    premium:  { legendary: 5,  epic: 20, rare: 30 },
+  };
+  const odds = PACK_ODDS[packType] ?? PACK_ODDS.standard;
+
   function drawRarity(): Rarity {
     const n = Math.random() * 100;
-    if (n < 3)  return 'legendary';
-    if (n < 15) return 'epic';
-    if (n < 40) return 'rare';
+    if (n < odds.legendary) return 'legendary';
+    if (n < odds.legendary + odds.epic) return 'epic';
+    if (n < odds.legendary + odds.epic + odds.rare) return 'rare';
     return 'common';
   }
 
@@ -188,10 +236,11 @@ export async function openPack(): Promise<SnapCard[]> {
     };
   }
 
+  const packSize = ({ mini: 3, standard: 5, premium: 10 } as Record<string, number>)[packType] ?? 5;
   const results: SnapCard[] = [];
   const usedIds = new Set<string>();
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < packSize; i++) {
     const rarity = drawRarity();
     const candidates = pool.filter(
       (c) => c.rarity === rarity && !usedIds.has(c.id)
@@ -236,7 +285,8 @@ export async function openPack(): Promise<SnapCard[]> {
   }
 
   // Record the pack opening
-  await supabase.from('packs').insert({ user_id: user.id, price_paid: 1.99 });
+  const packPrice = ({ mini: 0.99, standard: 1.99, premium: 4.99 } as Record<string, number>)[packType] ?? 1.99;
+  await supabase.from('packs').insert({ user_id: user.id, price_paid: packPrice });
 
   revalidatePath('/[locale]/album', 'page');
   return results;

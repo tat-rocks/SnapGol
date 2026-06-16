@@ -109,15 +109,20 @@ export default async function HomePage({ params }: Props) {
                 const cfg = RARITY_CONFIG[rarity];
                 const isLegendary = rarity === 'legendary';
                 return (
-                  <div
-                    key={i}
-                    className="relative flex flex-col rounded-2xl overflow-hidden w-full max-w-xs"
-                    style={{
-                      background: cfg.bgGradient,
-                      border: `2px solid ${cfg.color}`,
-                      boxShadow: `0 0 24px ${cfg.glow}`,
-                    }}
-                  >
+                  <div key={i} className="relative w-full max-w-xs pt-3 pl-3">
+                    {/* Step number badge — on the outer wrapper so it's not clipped */}
+                    <div className="absolute top-0 left-0 w-7 h-7 rounded-full bg-sg-green text-sg-bg text-xs font-black flex items-center justify-center z-20 shadow-lg">
+                      {i + 1}
+                    </div>
+
+                    <div
+                      className="relative flex flex-col rounded-2xl overflow-hidden w-full"
+                      style={{
+                        background: cfg.bgGradient,
+                        border: `2px solid ${cfg.color}`,
+                        boxShadow: `0 0 24px ${cfg.glow}`,
+                      }}
+                    >
                     {/* Legendary shimmer */}
                     {isLegendary && (
                       <div className="absolute inset-0 pointer-events-none z-10"
@@ -128,13 +133,8 @@ export default async function HomePage({ params }: Props) {
                         }} />
                     )}
 
-                    {/* Step number badge */}
-                    <div className="absolute -top-3 -left-3 w-7 h-7 rounded-full bg-sg-green text-sg-bg text-xs font-black flex items-center justify-center z-20">
-                      {i + 1}
-                    </div>
-
                     {/* Card header */}
-                    <div className="flex justify-between items-center px-3 py-2 border-b border-white/10 text-[10px] text-white/40">
+                    <div className="flex justify-between items-center px-3 py-2 border-b border-white/10 text-[10px] text-white/50">
                       <span className="uppercase tracking-widest">How it works</span>
                       <span className="font-mono">{serials[i]}</span>
                     </div>
@@ -149,8 +149,9 @@ export default async function HomePage({ params }: Props) {
                       style={{ background: 'rgba(0,0,0,0.35)' }}>
                       <RarityBadge rarity={rarity} size="sm" />
                       <h3 className="font-bold text-white text-base mt-2">{step.title}</h3>
-                      <p className="text-white/50 text-sm leading-relaxed">{step.desc}</p>
+                      <p className="text-white/65 text-sm leading-relaxed">{step.desc}</p>
                     </div>
+                  </div>
                   </div>
                 );
               })}
