@@ -101,27 +101,59 @@ export default async function HomePage({ params }: Props) {
             <h2 className="text-2xl sm:text-4xl font-black text-center text-white mb-10 sm:mb-16">
               {t('howItWorks_title')}
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
-              {steps.map((step, i) => (
-                <div key={i} className="relative flex sm:flex-col items-start sm:items-center gap-4 sm:gap-0
-                                        text-left sm:text-center space-y-0 sm:space-y-4
-                                        p-5 sm:p-8 rounded-2xl bg-sg-surface-2 border border-white/5
-                                        hover:border-sg-green/20 transition-colors group">
-                  <div className="shrink-0 inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14
-                                  rounded-2xl bg-sg-green/10 text-2xl sm:text-3xl
-                                  group-hover:bg-sg-green/20 transition-colors">
-                    {step.icon}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
+              {steps.map((step, i) => {
+                const stepRarities: Rarity[] = ['rare', 'epic', 'legendary'];
+                const serials = ['#001', '#002', '#003'];
+                const rarity = stepRarities[i];
+                const cfg = RARITY_CONFIG[rarity];
+                const isLegendary = rarity === 'legendary';
+                return (
+                  <div
+                    key={i}
+                    className="relative flex flex-col rounded-2xl overflow-hidden w-full max-w-xs"
+                    style={{
+                      background: cfg.bgGradient,
+                      border: `2px solid ${cfg.color}`,
+                      boxShadow: `0 0 24px ${cfg.glow}`,
+                    }}
+                  >
+                    {/* Legendary shimmer */}
+                    {isLegendary && (
+                      <div className="absolute inset-0 pointer-events-none z-10"
+                        style={{
+                          background: 'linear-gradient(135deg, transparent 30%, rgba(255,215,0,0.08) 50%, transparent 70%)',
+                          backgroundSize: '200% 200%',
+                          animation: 'shimmer-sweep 3s linear infinite',
+                        }} />
+                    )}
+
+                    {/* Step number badge */}
+                    <div className="absolute -top-3 -left-3 w-7 h-7 rounded-full bg-sg-green text-sg-bg text-xs font-black flex items-center justify-center z-20">
+                      {i + 1}
+                    </div>
+
+                    {/* Card header */}
+                    <div className="flex justify-between items-center px-3 py-2 border-b border-white/10 text-[10px] text-white/40">
+                      <span className="uppercase tracking-widest">How it works</span>
+                      <span className="font-mono">{serials[i]}</span>
+                    </div>
+
+                    {/* Icon */}
+                    <div className="flex items-center justify-center py-8 sm:py-10">
+                      <span className="text-5xl sm:text-6xl">{step.icon}</span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="border-t border-white/10 p-4 space-y-2"
+                      style={{ background: 'rgba(0,0,0,0.35)' }}>
+                      <RarityBadge rarity={rarity} size="sm" />
+                      <h3 className="font-bold text-white text-base mt-2">{step.title}</h3>
+                      <p className="text-white/50 text-sm leading-relaxed">{step.desc}</p>
+                    </div>
                   </div>
-                  <div className="absolute -top-3 -left-3 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-sg-green
-                                  text-sg-bg text-xs font-black flex items-center justify-center">
-                    {i + 1}
-                  </div>
-                  <div className="sm:mt-4">
-                    <h3 className="text-base sm:text-lg font-bold text-white">{step.title}</h3>
-                    <p className="text-white/50 text-sm leading-relaxed mt-1">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
