@@ -32,7 +32,7 @@ export async function signInWithPassword(email: string, password: string) {
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) throw error;
-  redirect('/en/album');
+  redirect('/en');
 }
 
 export async function signInWithMagicLink(email: string) {

@@ -7,9 +7,10 @@ import type { SnapCard as SnapCardType } from '@/lib/types';
 interface Props {
   cards: SnapCardType[];
   totalSlots: number;
+  locale: string;
 }
 
-export default function AlbumGrid({ cards, totalSlots }: Props) {
+export default function AlbumGrid({ cards, totalSlots, locale }: Props) {
   const t = useTranslations('Album');
 
   const progress = Math.round((cards.length / totalSlots) * 100);
@@ -36,9 +37,12 @@ export default function AlbumGrid({ cards, totalSlots }: Props) {
 
       {/* Card grid */}
       {cards.length === 0 ? (
-        <div className="text-center py-20 space-y-4">
-          <p className="text-4xl">📦</p>
+        <div className="text-center py-12 space-y-4">
           <p className="text-white/40">{t('no_cards')}</p>
+          <a href={`/${locale}/pack`}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-sg-green text-sg-bg font-bold text-sm hover:bg-sg-green/90 transition-colors">
+            Abrir primer sobre
+          </a>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
