@@ -11,21 +11,25 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import AuthModal from '@/components/auth/AuthModal';
+import { signOut } from '@/lib/supabase/actions';
 
 const locales = Object.entries(LOCALE_LABELS);
 
-export default function Header() {
+export default function Header({ user }: { user?: { email?: string } | null }) {
   const t = useTranslations('Nav');
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen]   = useState(false);
+  const [showAuth, setShowAuth]       = useState(false);
 
   function switchLocale(next: string) {
     router.replace(pathname, { locale: next });
   }
 
   return (
+    <>
     <header className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-sg-bg/80 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 items-center justify-between">
@@ -84,11 +88,18 @@ export default function Header() {
             </Link>
 
             {/* Auth */}
-            <Link href="/auth/sign-in">
-              <Button variant="outline" size="sm" className="h-8 text-xs border-white/10 text-white/70 hover:text-white hover:border-white/20">
+            {user ? (
+              <form action={signOut}>
+                <Button type="submit" variant="outline" size="sm" className="h-8 text-xs border-white/10 text-white/70 hover:text-white hover:border-white/20">
+                  Sign out
+                </Button>
+              </form>
+            ) : (
+              <Button variant="outline" size="sm" onClick={() => setShowAuth(true)}
+                className="h-8 text-xs border-white/10 text-white/70 hover:text-white hover:border-white/20">
                 {t('signIn')}
               </Button>
-            </Link>
+            )}
 
             {/* Mobile hamburger */}
             <button
@@ -129,5 +140,8 @@ export default function Header() {
         )}
       </div>
     </header>
+
+    {showAuth && <AuthModal onClose={() => setShowAuth(false)} />}
+  </>
   );
 }
