@@ -3,16 +3,25 @@
 import { createClient } from './server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 import type { Rarity, SnapCard } from '@/lib/types';
+
+async function siteUrl() {
+  const h = await headers();
+  const host  = h.get('host') ?? 'snap-gol.vercel.app';
+  const proto = h.get('x-forwarded-proto') ?? (host.startsWith('localhost') ? 'http' : 'https');
+  return `${proto}://${host}`;
+}
 
 // ─── Auth ─────────────────────────────────────────────────────
 
 export async function signInWithGoogle() {
   const supabase = await createClient();
+  const base = await siteUrl();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      redirectTo: `${base}/auth/callback`,
     },
   });
   if (error) throw error;
@@ -21,10 +30,11 @@ export async function signInWithGoogle() {
 
 export async function signInWithMagicLink(email: string) {
   const supabase = await createClient();
+  const base = await siteUrl();
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      emailRedirectTo: `${base}/auth/callback`,
     },
   });
   if (error) throw error;
