@@ -3,64 +3,35 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import SnapCard from '@/components/card/SnapCard';
-import RarityBadge from '@/components/card/RarityBadge';
 import { RARITY_CONFIG } from '@/lib/constants';
 import type { Rarity, SnapCard as SnapCardType } from '@/lib/types';
+import { buyCard } from '@/lib/supabase/actions';
 
 const RARITIES: Rarity[] = ['common', 'rare', 'epic', 'legendary'];
 
-// Placeholder mock listings
-const MOCK_LISTINGS: SnapCardType[] = [
-  {
-    id: '1', photo_url: '', photographer_name: 'Carlos M.', photographer_id: '1',
-    match_id: 'm1', match_label: 'Brazil vs Argentina', country_a: 'Brazil', country_b: 'Argentina',
-    flag_a: '🇧🇷', flag_b: '🇦🇷', rarity: 'legendary', price_usd: 49.99,
-    likes: 8420, is_for_sale: true, is_minted: false, serial_number: 1, total_supply: 10,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: '2', photo_url: '', photographer_name: 'Ana S.', photographer_id: '2',
-    match_id: 'm2', match_label: 'France vs Spain', country_a: 'France', country_b: 'Spain',
-    flag_a: '🇫🇷', flag_b: '🇪🇸', rarity: 'epic', price_usd: 12.50,
-    likes: 3210, is_for_sale: true, is_minted: false, serial_number: 7, total_supply: 50,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: '3', photo_url: '', photographer_name: 'João P.', photographer_id: '3',
-    match_id: 'm3', match_label: 'Germany vs Portugal', country_a: 'Germany', country_b: 'Portugal',
-    flag_a: '🇩🇪', flag_b: '🇵🇹', rarity: 'rare', price_usd: 4.99,
-    likes: 980, is_for_sale: true, is_minted: false, serial_number: 23, total_supply: 100,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: '4', photo_url: '', photographer_name: 'Sofia R.', photographer_id: '4',
-    match_id: 'm4', match_label: 'Morocco vs Senegal', country_a: 'Morocco', country_b: 'Senegal',
-    flag_a: '🇲🇦', flag_b: '🇸🇳', rarity: 'common', price_usd: 0.99,
-    likes: 210, is_for_sale: true, is_minted: false, serial_number: 88, total_supply: 500,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: '5', photo_url: '', photographer_name: 'Mehmet A.', photographer_id: '5',
-    match_id: 'm5', match_label: 'Argentina vs France', country_a: 'Argentina', country_b: 'France',
-    flag_a: '🇦🇷', flag_b: '🇫🇷', rarity: 'legendary', price_usd: 89.00,
-    likes: 14200, is_for_sale: true, is_minted: true, serial_number: 1, total_supply: 3,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: '6', photo_url: '', photographer_name: 'Lina V.', photographer_id: '6',
-    match_id: 'm6', match_label: 'Japan vs Croatia', country_a: 'Japan', country_b: 'Croatia',
-    flag_a: '🇯🇵', flag_b: '🇭🇷', rarity: 'epic', price_usd: 18.00,
-    likes: 4100, is_for_sale: true, is_minted: false, serial_number: 12, total_supply: 50,
-    created_at: new Date().toISOString(),
-  },
-];
+interface Props {
+  listings: SnapCardType[];
+  locale: string;
+}
 
-export default function MarketplaceClient() {
+export default function MarketplaceClient({ listings, locale }: Props) {
   const t = useTranslations('Marketplace');
   const [rarityFilter, setRarityFilter] = useState<Rarity | 'all'>('all');
   const [sort, setSort] = useState<'newest' | 'price_asc' | 'price_desc'>('newest');
+  const [buying, setBuying] = useState<string | null>(null);
 
-  const filtered = MOCK_LISTINGS
+  async function handleBuy(card: SnapCardType) {
+    const listingId = (card as any).listing_id;
+    if (!listingId) return;
+    setBuying(card.id);
+    try {
+      await buyCard(listingId);
+    } finally {
+      setBuying(null);
+    }
+  }
+
+  const filtered = listings
     .filter((c) => rarityFilter === 'all' || c.rarity === rarityFilter)
     .sort((a, b) => {
       if (sort === 'price_asc') return a.price_usd - b.price_usd;
@@ -117,7 +88,21 @@ export default function MarketplaceClient() {
       </div>
 
       {/* Cards grid */}
-      {filtered.length === 0 ? (
+      {listings.length === 0 ? (
+        <div className="text-center py-24 space-y-4">
+          <p className="text-5xl">🏪</p>
+          <p className="text-white/60 font-semibold text-lg">No listings yet</p>
+          <p className="text-white/30 text-sm max-w-xs mx-auto">
+            Be the first to list a card. Upload your photo and put it up for sale.
+          </p>
+          <a
+            href={`/${locale}/upload`}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sg-green text-sg-bg font-bold text-sm hover:bg-sg-green/90 transition-colors"
+          >
+            Upload a Photo →
+          </a>
+        </div>
+      ) : filtered.length === 0 ? (
         <div className="text-center py-20 text-white/30">{t('no_results')}</div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
@@ -134,9 +119,11 @@ export default function MarketplaceClient() {
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white text-sm">${card.price_usd.toFixed(2)}</span>
                   <button
-                    className="px-3 py-1 rounded-full text-xs font-bold text-sg-bg bg-sg-green hover:bg-sg-green/90 transition-colors"
+                    onClick={() => handleBuy(card)}
+                    disabled={buying === card.id}
+                    className="px-3 py-1 rounded-full text-xs font-bold text-sg-bg bg-sg-green hover:bg-sg-green/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {t('buy_now')}
+                    {buying === card.id ? '...' : t('buy_now')}
                   </button>
                 </div>
               </div>

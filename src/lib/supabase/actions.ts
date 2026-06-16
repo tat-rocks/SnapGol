@@ -3,6 +3,7 @@
 import { createClient } from './server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import type { Rarity, SnapCard } from '@/lib/types';
 
 // ─── Auth ─────────────────────────────────────────────────────
 
@@ -106,6 +107,122 @@ export async function unlikeCard(cardId: string) {
     .delete()
     .match({ user_id: user.id, card_id: cardId });
   revalidatePath('/[locale]/marketplace', 'page');
+}
+
+// ─── Packs ────────────────────────────────────────────────────
+
+export async function openPack(): Promise<SnapCard[]> {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  // Fetch pool of existing cards (up to 50 most recent)
+  const { data: poolRows } = await supabase
+    .from('cards')
+    .select(`
+      id, photo_url, rarity, likes,
+      serial_number, total_supply, price_usd, is_for_sale, is_minted, created_at,
+      profiles!cards_photographer_id_fkey (username),
+      matches (team_a, team_b, flag_a, flag_b)
+    `)
+    .order('created_at', { ascending: false })
+    .limit(50);
+
+  // Get seeded matches for demo fallback cards
+  const { data: matchRows } = await supabase
+    .from('matches')
+    .select('id, team_a, team_b, flag_a, flag_b')
+    .limit(10);
+
+  const pool = poolRows ?? [];
+  const demoMatches = matchRows ?? [];
+
+  function drawRarity(): Rarity {
+    const n = Math.random() * 100;
+    if (n < 3)  return 'legendary';
+    if (n < 15) return 'epic';
+    if (n < 40) return 'rare';
+    return 'common';
+  }
+
+  const DEMO_PRICES: Record<Rarity, number> = {
+    legendary: 49.99, epic: 12.50, rare: 4.99, common: 0.99,
+  };
+
+  function makeDemoCard(rarity: Rarity, index: number): SnapCard {
+    const m = demoMatches[index % Math.max(demoMatches.length, 1)];
+    return {
+      id: `demo-${index}-${Date.now()}`,
+      photo_url: '',
+      photographer_name: 'SnapGol',
+      photographer_id: '',
+      match_id: m?.id ?? '',
+      match_label: m ? `${m.team_a} vs ${m.team_b}` : 'World Cup 2026',
+      country_a: m?.team_a ?? '',
+      country_b: m?.team_b ?? '',
+      flag_a: m?.flag_a ?? '⚽',
+      flag_b: m?.flag_b ?? '🏆',
+      rarity,
+      price_usd: DEMO_PRICES[rarity],
+      likes: 0,
+      is_for_sale: false,
+      is_minted: false,
+      created_at: new Date().toISOString(),
+    };
+  }
+
+  const results: SnapCard[] = [];
+  const usedIds = new Set<string>();
+
+  for (let i = 0; i < 5; i++) {
+    const rarity = drawRarity();
+    const candidates = pool.filter(
+      (c) => c.rarity === rarity && !usedIds.has(c.id)
+    );
+
+    if (candidates.length > 0) {
+      const pick = candidates[Math.floor(Math.random() * candidates.length)];
+      usedIds.add(pick.id);
+      const m = pick.matches as unknown as { team_a: string; team_b: string; flag_a: string; flag_b: string } | null;
+      results.push({
+        id: pick.id,
+        photo_url: pick.photo_url,
+        photographer_name: (pick.profiles as unknown as { username: string } | null)?.username ?? 'unknown',
+        photographer_id: '',
+        match_id: '',
+        match_label: m ? `${m.team_a} vs ${m.team_b}` : '',
+        country_a: m?.team_a ?? '',
+        country_b: m?.team_b ?? '',
+        flag_a: m?.flag_a ?? '',
+        flag_b: m?.flag_b ?? '',
+        rarity: pick.rarity as Rarity,
+        price_usd: pick.price_usd,
+        likes: pick.likes,
+        is_for_sale: pick.is_for_sale,
+        is_minted: pick.is_minted,
+        serial_number: pick.serial_number,
+        total_supply: pick.total_supply,
+        created_at: pick.created_at,
+      });
+    } else {
+      results.push(makeDemoCard(rarity, i));
+    }
+  }
+
+  // Add real cards to user's collection
+  const realCards = results.filter((c) => !c.id.startsWith('demo-'));
+  if (realCards.length > 0) {
+    await supabase.from('collections').upsert(
+      realCards.map((c) => ({ user_id: user.id, card_id: c.id, quantity: 1 })),
+      { onConflict: 'user_id,card_id' }
+    );
+  }
+
+  // Record the pack opening
+  await supabase.from('packs').insert({ user_id: user.id, price_paid: 1.99 });
+
+  revalidatePath('/[locale]/album', 'page');
+  return results;
 }
 
 // ─── Marketplace ──────────────────────────────────────────────

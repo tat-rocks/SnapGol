@@ -94,9 +94,15 @@
   },
   "Pack": {
     "title": "Abertura de Pacote",
+    "subtitle": "5 cartas aleatórias da Copa esperam por você",
+    "price": "$1.99",
     "click_to_open": "Toque para abrir seu pacote",
-    "revealing": "Revelando...",
+    "revealing": "Revelando suas cartas...",
     "done": "Ver Meu Álbum",
-    "share": "Compartilhar"
+    "share": "Compartilhar",
+    "open_another": "Abrir Outro Pacote",
+    "locked_title": "Entre para abrir pacotes",
+    "locked_desc": "Crie uma conta grátis para começar a colecionar.",
+    "locked_cta": "Entrar Grátis"
   }
 }

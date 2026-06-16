@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams, useRouter } from 'next/navigation';
 import SnapCard from '@/components/card/SnapCard';
 import type { SnapCard as SnapCardType } from '@/lib/types';
 
@@ -13,6 +14,8 @@ type Phase = 'idle' | 'opening' | 'revealing' | 'done';
 
 export default function PackOpening({ onOpen }: Props) {
   const t = useTranslations('Pack');
+  const router = useRouter();
+  const { locale } = useParams<{ locale: string }>();
   const [phase, setPhase] = useState<Phase>('idle');
   const [cards, setCards] = useState<SnapCardType[]>([]);
   const [revealed, setRevealed] = useState<number>(0);
@@ -81,12 +84,18 @@ export default function PackOpening({ onOpen }: Props) {
       </div>
 
       {phase === 'done' && (
-        <div className="flex gap-3">
-          <button className="px-5 py-2 rounded-full bg-sg-green text-sg-bg font-bold text-sm hover:bg-sg-green/90 transition-colors">
+        <div className="flex flex-wrap gap-3 justify-center">
+          <button
+            onClick={() => router.push(`/${locale}/album`)}
+            className="px-5 py-2 rounded-full bg-sg-green text-sg-bg font-bold text-sm hover:bg-sg-green/90 transition-colors"
+          >
             {t('done')}
           </button>
-          <button className="px-5 py-2 rounded-full border border-white/10 text-white/60 font-bold text-sm hover:border-white/20 hover:text-white transition-colors">
-            {t('share')}
+          <button
+            onClick={() => { setPhase('idle'); setCards([]); setRevealed(0); }}
+            className="px-5 py-2 rounded-full border border-white/10 text-white/60 font-bold text-sm hover:border-white/20 hover:text-white transition-colors"
+          >
+            {t('open_another')}
           </button>
         </div>
       )}

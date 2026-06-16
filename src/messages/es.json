@@ -94,9 +94,15 @@
   },
   "Pack": {
     "title": "Apertura de Sobre",
+    "subtitle": "5 cartas del Mundial te esperan",
+    "price": "$1.99",
     "click_to_open": "Tocá para abrir tu sobre",
-    "revealing": "Revelando...",
+    "revealing": "Revelando tus cartas...",
     "done": "Ver mi Álbum",
-    "share": "Compartir"
+    "share": "Compartir",
+    "open_another": "Abrir Otro Sobre",
+    "locked_title": "Iniciá sesión para abrir sobres",
+    "locked_desc": "Creá una cuenta gratis para empezar a coleccionar.",
+    "locked_cta": "Registrarse Gratis"
   }
 }

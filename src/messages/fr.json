@@ -94,9 +94,15 @@
   },
   "Pack": {
     "title": "Ouverture de Pack",
+    "subtitle": "5 cartes aléatoires de la Coupe du Monde vous attendent",
+    "price": "1,99 $",
     "click_to_open": "Cliquez pour ouvrir votre pack",
-    "revealing": "Révélation...",
+    "revealing": "Révélation de vos cartes...",
     "done": "Voir mon Album",
-    "share": "Partager"
+    "share": "Partager",
+    "open_another": "Ouvrir un Autre Pack",
+    "locked_title": "Connectez-vous pour ouvrir des packs",
+    "locked_desc": "Créez un compte gratuit pour commencer votre collection.",
+    "locked_cta": "S'inscrire Gratuitement"
   }
 }

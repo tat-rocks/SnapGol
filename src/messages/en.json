@@ -94,9 +94,15 @@
   },
   "Pack": {
     "title": "Pack Opening",
+    "subtitle": "5 random World Cup cards await",
+    "price": "$1.99",
     "click_to_open": "Click to open your pack",
-    "revealing": "Revealing...",
+    "revealing": "Revealing your cards...",
     "done": "View My Album",
-    "share": "Share"
+    "share": "Share",
+    "open_another": "Open Another Pack",
+    "locked_title": "Sign in to open packs",
+    "locked_desc": "Create a free account to start collecting World Cup cards.",
+    "locked_cta": "Sign In Free"
   }
 }
