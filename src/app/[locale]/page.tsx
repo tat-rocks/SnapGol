@@ -2,6 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Header from '@/components/layout/Header';
 import RarityBadge from '@/components/card/RarityBadge';
+import HeroCards from '@/components/hero/HeroCards';
 import { RARITY_CONFIG, MOCK_STATS } from '@/lib/constants';
 import type { Rarity } from '@/lib/types';
 
@@ -41,7 +42,8 @@ export default async function HomePage({ params }: Props) {
                 <div className="inline-flex items-center gap-2 rounded-full border border-sg-green/30 bg-sg-green/10 px-3 py-1 text-xs font-semibold text-sg-green uppercase tracking-wider">
                   <span>⚽</span> World Cup 2026
                 </div>
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-white">
+                <h1 className="font-black leading-[1.05] tracking-tight text-white"
+                  style={{ fontSize: 'clamp(1.9rem, 4.5vw, 4rem)' }}>
                   {t('hero_title').split('. ').map((part, i, arr) => (
                     <span key={i}>
                       {i === 0 ? <span className="text-sg-green">{part}</span> : <span>{part}</span>}
@@ -81,18 +83,8 @@ export default async function HomePage({ params }: Props) {
               </div>
             </div>
 
-            {/* Floating cards — desktop only */}
-            <div className="hidden lg:flex relative h-[500px] justify-center items-center">
-              <div className="absolute animate-float-back" style={{ top: '10%', left: '0%', zIndex: 1 }}>
-                <MockCard rarity="epic" />
-              </div>
-              <div className="absolute animate-float" style={{ top: '15%', left: '20%', zIndex: 2 }}>
-                <MockCard rarity="rare" />
-              </div>
-              <div className="absolute animate-float-mid" style={{ top: '5%', left: '42%', zIndex: 3 }}>
-                <MockCard rarity="legendary" />
-              </div>
-            </div>
+            {/* Floating cards — desktop only (client component with hover effect) */}
+            <HeroCards />
 
             {/* Mini cards — mobile only */}
             <div className="flex lg:hidden justify-center gap-4 -mt-4">
