@@ -1,0 +1,102 @@
+{
+  "Common": {
+    "appName": "سناب‌گول",
+    "tagline": "التقط كأس العالم"
+  },
+  "Nav": {
+    "home": "الرئيسية",
+    "album": "ألبومي",
+    "marketplace": "السوق",
+    "upload": "رفع",
+    "openPack": "فتح حزمة",
+    "signIn": "تسجيل الدخول",
+    "signUp": "انضم مجاناً",
+    "myCards": "بطاقاتي"
+  },
+  "Landing": {
+    "hero_title": "التقط. اجمع. تبادل.",
+    "hero_subtitle": "أول ألبوم ملصقات رقمي لكأس العالم يصنعه المشجعون. ارفع أفضل صورك، واكسب بطاقات نادرة، وأكمل مجموعتك.",
+    "cta_collect": "ابدأ الجمع",
+    "cta_marketplace": "تصفح السوق",
+    "stats_cards": "البطاقات المنشأة",
+    "stats_collectors": "الجامعون",
+    "stats_traded": "الصفقات",
+    "stats_countries": "الدول",
+    "howItWorks_title": "كيف يعمل",
+    "step1_title": "ارفع صورتك",
+    "step1_desc": "التقط اللحظة المثالية في كأس العالم. كل صورة تتحول إلى بطاقة تحفة فريدة.",
+    "step2_title": "اكسب الندرة",
+    "step2_desc": "المجتمع يصوّت. كلما حصلت صورتك على المزيد من الإعجابات، أصبحت بطاقتك أكثر ندرة — حتى أسطورية.",
+    "step3_title": "اجمع وتبادل",
+    "step3_desc": "أكمل ألبومك بشراء البطاقات وبيعها وتبادلها. اسكها كـ NFT متى شئت.",
+    "rarities_title": "أربعة مستويات من الندرة",
+    "rarities_subtitle": "من اللحظات اليومية إلى الصور التي لا تُنسى.",
+    "pack_title": "افتح حزمتك الأولى",
+    "pack_subtitle": "5 بطاقات عشوائية — قد تفاجئك!",
+    "pack_price": "1.99$",
+    "pack_cta": "افتح حزمة",
+    "features_title": "صُنع من المشجعين، للمشجعين"
+  },
+  "Album": {
+    "title": "ألبومي",
+    "progress": "{collected} من {total} بطاقة",
+    "complete": "الألبوم مكتمل!",
+    "empty_slot": "فارغ",
+    "by_country": "حسب الدولة",
+    "by_match": "حسب المباراة",
+    "all": "جميع البطاقات",
+    "duplicates": "المكررة ({count})",
+    "no_cards": "ليس لديك بطاقات بعد.",
+    "open_pack": "افتح حزمة"
+  },
+  "Marketplace": {
+    "title": "السوق",
+    "subtitle": "اشترِ وبِع وتبادل بطاقات كأس العالم",
+    "filter_rarity": "الندرة",
+    "filter_country": "الدولة",
+    "filter_all": "جميع الندرات",
+    "sort_newest": "الأحدث",
+    "sort_price_asc": "السعر: من الأقل للأعلى",
+    "sort_price_desc": "السعر: من الأعلى للأقل",
+    "sort_rarity": "الندرة",
+    "buy_now": "اشترِ الآن",
+    "make_offer": "قدّم عرضاً",
+    "listed_by": "بواسطة",
+    "no_results": "لا توجد بطاقات مطابقة.",
+    "price_label": "السعر"
+  },
+  "Upload": {
+    "title": "ارفع صورتك",
+    "subtitle": "حوّل أفضل لحظاتك في كأس العالم إلى بطاقة تحفة",
+    "drop_here": "أسقط صورتك هنا",
+    "or_browse": "أو انقر للتصفح",
+    "select_match": "اختر مباراة",
+    "caption_label": "تعليق (اختياري)",
+    "caption_placeholder": "ماذا يحدث في هذه الصورة؟",
+    "submit": "أنشئ بطاقتي",
+    "uploading": "جارٍ إنشاء بطاقتك...",
+    "success_title": "بطاقتك جاهزة!",
+    "success_cta": "عرض في الألبوم",
+    "photo_tips": "أفضل الصور: الأهداف، الاحتفالات، ردود أفعال المشجعين، أجواء الملعب.",
+    "max_size": "JPG أو PNG أو WEBP — حد أقصى 20 ميغابايت"
+  },
+  "Card": {
+    "rarity_common": "عادية",
+    "rarity_rare": "نادرة",
+    "rarity_epic": "ملحمية",
+    "rarity_legendary": "أسطورية",
+    "by": "بواسطة",
+    "view": "عرض",
+    "trade": "تبادل",
+    "sell": "عرض للبيع",
+    "mint_nft": "سك كـ NFT",
+    "serial": "#{serial}/{total}"
+  },
+  "Pack": {
+    "title": "فتح الحزمة",
+    "click_to_open": "انقر لفتح حزمتك",
+    "revealing": "جارٍ الكشف...",
+    "done": "عرض ألبومي",
+    "share": "مشاركة"
+  }
+}

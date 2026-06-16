@@ -1,0 +1,102 @@
+{
+  "Common": {
+    "appName": "SnapGol",
+    "tagline": "Capture the World Cup"
+  },
+  "Nav": {
+    "home": "Home",
+    "album": "My Album",
+    "marketplace": "Marketplace",
+    "upload": "Upload",
+    "openPack": "Open Pack",
+    "signIn": "Sign In",
+    "signUp": "Join Free",
+    "myCards": "My Cards"
+  },
+  "Landing": {
+    "hero_title": "Snap. Collect. Trade.",
+    "hero_subtitle": "The world's first fan-powered World Cup sticker album. Upload your best shots, earn rare cards, complete your collection.",
+    "cta_collect": "Start Collecting",
+    "cta_marketplace": "Browse Marketplace",
+    "stats_cards": "Cards Minted",
+    "stats_collectors": "Collectors",
+    "stats_traded": "Trades",
+    "stats_countries": "Countries",
+    "howItWorks_title": "How It Works",
+    "step1_title": "Upload Your Shot",
+    "step1_desc": "Snap the perfect moment at the World Cup. Every photo becomes a unique collectible card.",
+    "step2_title": "Earn Rarity",
+    "step2_desc": "The community votes. The more likes your photo earns, the rarer your card becomes — up to Legendary.",
+    "step3_title": "Collect & Trade",
+    "step3_desc": "Fill your album by buying, selling, and trading cards. Mint as NFT when you're ready.",
+    "rarities_title": "Four Levels of Rarity",
+    "rarities_subtitle": "From everyday moments to once-in-a-lifetime shots.",
+    "pack_title": "Open Your First Pack",
+    "pack_subtitle": "5 random cards — could be anything.",
+    "pack_price": "$1.99",
+    "pack_cta": "Open a Pack",
+    "features_title": "Built for Fans, by Fans"
+  },
+  "Album": {
+    "title": "My Album",
+    "progress": "{collected} of {total} cards",
+    "complete": "Album Complete!",
+    "empty_slot": "Empty",
+    "by_country": "By Country",
+    "by_match": "By Match",
+    "all": "All Cards",
+    "duplicates": "Duplicates ({count})",
+    "no_cards": "You don't have any cards yet.",
+    "open_pack": "Open a Pack"
+  },
+  "Marketplace": {
+    "title": "Marketplace",
+    "subtitle": "Buy, sell and trade World Cup cards",
+    "filter_rarity": "Rarity",
+    "filter_country": "Country",
+    "filter_all": "All rarities",
+    "sort_newest": "Newest",
+    "sort_price_asc": "Price: Low to High",
+    "sort_price_desc": "Price: High to Low",
+    "sort_rarity": "Rarity",
+    "buy_now": "Buy Now",
+    "make_offer": "Make Offer",
+    "listed_by": "by",
+    "no_results": "No cards match your filters.",
+    "price_label": "Price"
+  },
+  "Upload": {
+    "title": "Upload Your Shot",
+    "subtitle": "Turn your best World Cup moment into a collectible card",
+    "drop_here": "Drop your photo here",
+    "or_browse": "or click to browse",
+    "select_match": "Select a match",
+    "caption_label": "Caption (optional)",
+    "caption_placeholder": "What's happening in this photo?",
+    "submit": "Create My Card",
+    "uploading": "Creating your card...",
+    "success_title": "Your card is ready!",
+    "success_cta": "View in Album",
+    "photo_tips": "Best shots: goals, celebrations, fan reactions, stadium atmosphere.",
+    "max_size": "JPG, PNG or WEBP — max 20 MB"
+  },
+  "Card": {
+    "rarity_common": "Common",
+    "rarity_rare": "Rare",
+    "rarity_epic": "Epic",
+    "rarity_legendary": "Legendary",
+    "by": "by",
+    "view": "View",
+    "trade": "Trade",
+    "sell": "List for Sale",
+    "mint_nft": "Mint as NFT",
+    "serial": "#{serial}/{total}"
+  },
+  "Pack": {
+    "title": "Pack Opening",
+    "click_to_open": "Click to open your pack",
+    "revealing": "Revealing...",
+    "done": "View My Album",
+    "share": "Share"
+  }
+}

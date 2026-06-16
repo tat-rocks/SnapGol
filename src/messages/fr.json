@@ -1,0 +1,102 @@
+{
+  "Common": {
+    "appName": "SnapGol",
+    "tagline": "Capturez la Coupe du Monde"
+  },
+  "Nav": {
+    "home": "Accueil",
+    "album": "Mon Album",
+    "marketplace": "Marché",
+    "upload": "Publier",
+    "openPack": "Ouvrir un Pack",
+    "signIn": "Se Connecter",
+    "signUp": "S'inscrire",
+    "myCards": "Mes Cartes"
+  },
+  "Landing": {
+    "hero_title": "Snap. Collecte. Échange.",
+    "hero_subtitle": "Le premier album de vignettes digital de la Coupe du Monde créé par les fans. Publiez vos meilleures photos, gagnez des cartes rares et complétez votre collection.",
+    "cta_collect": "Commencer à Collecter",
+    "cta_marketplace": "Voir le Marché",
+    "stats_cards": "Cartes Créées",
+    "stats_collectors": "Collectionneurs",
+    "stats_traded": "Échanges",
+    "stats_countries": "Pays",
+    "howItWorks_title": "Comment ça Marche",
+    "step1_title": "Publiez Votre Photo",
+    "step1_desc": "Capturez le moment parfait à la Coupe du Monde. Chaque photo devient une carte de collection unique.",
+    "step2_title": "Gagnez en Rareté",
+    "step2_desc": "La communauté vote. Plus votre photo reçoit de likes, plus votre carte devient rare — jusqu'à Légendaire.",
+    "step3_title": "Collectez et Échangez",
+    "step3_desc": "Complétez votre album en achetant, vendant et échangeant des cartes. Mintez en NFT quand vous êtes prêt.",
+    "rarities_title": "Quatre Niveaux de Rareté",
+    "rarities_subtitle": "Des moments du quotidien aux photos uniques dans une vie.",
+    "pack_title": "Ouvrez Votre Premier Pack",
+    "pack_subtitle": "5 cartes aléatoires — tout est possible.",
+    "pack_price": "1,99 $",
+    "pack_cta": "Ouvrir un Pack",
+    "features_title": "Créé par les Fans, pour les Fans"
+  },
+  "Album": {
+    "title": "Mon Album",
+    "progress": "{collected} sur {total} cartes",
+    "complete": "Album Complet !",
+    "empty_slot": "Vide",
+    "by_country": "Par Pays",
+    "by_match": "Par Match",
+    "all": "Toutes les Cartes",
+    "duplicates": "Doubles ({count})",
+    "no_cards": "Vous n'avez pas encore de cartes.",
+    "open_pack": "Ouvrir un Pack"
+  },
+  "Marketplace": {
+    "title": "Marché",
+    "subtitle": "Achetez, vendez et échangez des cartes de la Coupe",
+    "filter_rarity": "Rareté",
+    "filter_country": "Pays",
+    "filter_all": "Toutes les raretés",
+    "sort_newest": "Plus Récentes",
+    "sort_price_asc": "Prix : Croissant",
+    "sort_price_desc": "Prix : Décroissant",
+    "sort_rarity": "Rareté",
+    "buy_now": "Acheter",
+    "make_offer": "Faire une Offre",
+    "listed_by": "par",
+    "no_results": "Aucune carte trouvée.",
+    "price_label": "Prix"
+  },
+  "Upload": {
+    "title": "Publiez Votre Photo",
+    "subtitle": "Transformez votre meilleur moment de la Coupe en carte de collection",
+    "drop_here": "Déposez votre photo ici",
+    "or_browse": "ou cliquez pour parcourir",
+    "select_match": "Sélectionnez un match",
+    "caption_label": "Légende (facultatif)",
+    "caption_placeholder": "Que se passe-t-il sur cette photo ?",
+    "submit": "Créer ma Carte",
+    "uploading": "Création de votre carte...",
+    "success_title": "Votre carte est prête !",
+    "success_cta": "Voir dans l'Album",
+    "photo_tips": "Meilleures photos : buts, célébrations, réactions des fans, ambiance du stade.",
+    "max_size": "JPG, PNG ou WEBP — max 20 Mo"
+  },
+  "Card": {
+    "rarity_common": "Commune",
+    "rarity_rare": "Rare",
+    "rarity_epic": "Épique",
+    "rarity_legendary": "Légendaire",
+    "by": "par",
+    "view": "Voir",
+    "trade": "Échanger",
+    "sell": "Mettre en Vente",
+    "mint_nft": "Minter en NFT",
+    "serial": "#{serial}/{total}"
+  },
+  "Pack": {
+    "title": "Ouverture de Pack",
+    "click_to_open": "Cliquez pour ouvrir votre pack",
+    "revealing": "Révélation...",
+    "done": "Voir mon Album",
+    "share": "Partager"
+  }
+}

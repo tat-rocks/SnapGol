@@ -1,0 +1,102 @@
+{
+  "Common": {
+    "appName": "SnapGol",
+    "tagline": "Capturá el Mundial"
+  },
+  "Nav": {
+    "home": "Inicio",
+    "album": "Mi Álbum",
+    "marketplace": "Mercado",
+    "upload": "Subir",
+    "openPack": "Abrir Sobre",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "myCards": "Mis Cartas"
+  },
+  "Landing": {
+    "hero_title": "Snap. Coleccioná. Intercambiá.",
+    "hero_subtitle": "El primer álbum de figuritas digital del Mundial hecho por los hinchas. Subí tus mejores fotos, ganate cartas raras y completá tu colección.",
+    "cta_collect": "Empezar a Coleccionar",
+    "cta_marketplace": "Ver Mercado",
+    "stats_cards": "Cartas Creadas",
+    "stats_collectors": "Coleccionistas",
+    "stats_traded": "Intercambios",
+    "stats_countries": "Países",
+    "howItWorks_title": "¿Cómo Funciona?",
+    "step1_title": "Subí tu Foto",
+    "step1_desc": "Capturá el momento perfecto del Mundial. Cada foto se convierte en una carta coleccionable única.",
+    "step2_title": "Ganá Rareza",
+    "step2_desc": "La comunidad vota. Cuantos más likes reciba tu foto, más rara se vuelve tu carta — hasta Legendaria.",
+    "step3_title": "Coleccioná e Intercambiá",
+    "step3_desc": "Completá tu álbum comprando, vendiendo e intercambiando cartas. Minteala como NFT cuando estés listo.",
+    "rarities_title": "Cuatro Niveles de Rareza",
+    "rarities_subtitle": "Desde momentos cotidianos hasta fotos únicas en la vida.",
+    "pack_title": "Abrí tu Primer Sobre",
+    "pack_subtitle": "5 cartas al azar — cualquier cosa es posible.",
+    "pack_price": "$1.99",
+    "pack_cta": "Abrir un Sobre",
+    "features_title": "Hecho por Hinchas, para Hinchas"
+  },
+  "Album": {
+    "title": "Mi Álbum",
+    "progress": "{collected} de {total} cartas",
+    "complete": "¡Álbum Completo!",
+    "empty_slot": "Vacío",
+    "by_country": "Por País",
+    "by_match": "Por Partido",
+    "all": "Todas las Cartas",
+    "duplicates": "Repetidas ({count})",
+    "no_cards": "Todavía no tenés cartas.",
+    "open_pack": "Abrir un Sobre"
+  },
+  "Marketplace": {
+    "title": "Mercado",
+    "subtitle": "Comprá, vendé e intercambiá cartas del Mundial",
+    "filter_rarity": "Rareza",
+    "filter_country": "País",
+    "filter_all": "Todas las rarezas",
+    "sort_newest": "Más nuevas",
+    "sort_price_asc": "Precio: Menor a Mayor",
+    "sort_price_desc": "Precio: Mayor a Menor",
+    "sort_rarity": "Rareza",
+    "buy_now": "Comprar",
+    "make_offer": "Hacer Oferta",
+    "listed_by": "por",
+    "no_results": "No hay cartas con esos filtros.",
+    "price_label": "Precio"
+  },
+  "Upload": {
+    "title": "Subí tu Foto",
+    "subtitle": "Convertí tu mejor momento del Mundial en una carta coleccionable",
+    "drop_here": "Soltá tu foto acá",
+    "or_browse": "o hacé clic para buscar",
+    "select_match": "Seleccioná un partido",
+    "caption_label": "Descripción (opcional)",
+    "caption_placeholder": "¿Qué está pasando en esta foto?",
+    "submit": "Crear mi Carta",
+    "uploading": "Creando tu carta...",
+    "success_title": "¡Tu carta está lista!",
+    "success_cta": "Ver en el Álbum",
+    "photo_tips": "Las mejores fotos: goles, festejos, reacciones de hinchas, ambiente del estadio.",
+    "max_size": "JPG, PNG o WEBP — máx 20 MB"
+  },
+  "Card": {
+    "rarity_common": "Común",
+    "rarity_rare": "Rara",
+    "rarity_epic": "Épica",
+    "rarity_legendary": "Legendaria",
+    "by": "por",
+    "view": "Ver",
+    "trade": "Intercambiar",
+    "sell": "Poner en Venta",
+    "mint_nft": "Mintear como NFT",
+    "serial": "#{serial}/{total}"
+  },
+  "Pack": {
+    "title": "Apertura de Sobre",
+    "click_to_open": "Tocá para abrir tu sobre",
+    "revealing": "Revelando...",
+    "done": "Ver mi Álbum",
+    "share": "Compartir"
+  }
+}

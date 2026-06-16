@@ -1,0 +1,102 @@
+{
+  "Common": {
+    "appName": "SnapGol",
+    "tagline": "Capture a Copa do Mundo"
+  },
+  "Nav": {
+    "home": "Início",
+    "album": "Meu Álbum",
+    "marketplace": "Mercado",
+    "upload": "Enviar",
+    "openPack": "Abrir Pacote",
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "myCards": "Minhas Cartas"
+  },
+  "Landing": {
+    "hero_title": "Snap. Colecione. Troque.",
+    "hero_subtitle": "O primeiro álbum de figurinhas digital da Copa feito pelos torcedores. Envie suas melhores fotos, ganhe cartas raras e complete sua coleção.",
+    "cta_collect": "Começar a Coletar",
+    "cta_marketplace": "Ver Mercado",
+    "stats_cards": "Cartas Criadas",
+    "stats_collectors": "Colecionadores",
+    "stats_traded": "Trocas",
+    "stats_countries": "Países",
+    "howItWorks_title": "Como Funciona",
+    "step1_title": "Envie sua Foto",
+    "step1_desc": "Capture o momento perfeito na Copa. Cada foto vira uma carta colecionável única.",
+    "step2_title": "Ganhe Raridade",
+    "step2_desc": "A comunidade vota. Quanto mais curtidas sua foto receber, mais rara fica sua carta — até Lendária.",
+    "step3_title": "Colecione e Troque",
+    "step3_desc": "Complete seu álbum comprando, vendendo e trocando cartas. Mintar como NFT quando quiser.",
+    "rarities_title": "Quatro Níveis de Raridade",
+    "rarities_subtitle": "De momentos do dia a dia a fotos únicas na vida.",
+    "pack_title": "Abra Seu Primeiro Pacote",
+    "pack_subtitle": "5 cartas aleatórias — pode ser qualquer coisa.",
+    "pack_price": "$1.99",
+    "pack_cta": "Abrir um Pacote",
+    "features_title": "Feito por Torcedores, para Torcedores"
+  },
+  "Album": {
+    "title": "Meu Álbum",
+    "progress": "{collected} de {total} cartas",
+    "complete": "Álbum Completo!",
+    "empty_slot": "Vazio",
+    "by_country": "Por País",
+    "by_match": "Por Jogo",
+    "all": "Todas as Cartas",
+    "duplicates": "Repetidas ({count})",
+    "no_cards": "Você ainda não tem cartas.",
+    "open_pack": "Abrir um Pacote"
+  },
+  "Marketplace": {
+    "title": "Mercado",
+    "subtitle": "Compre, venda e troque cartas da Copa",
+    "filter_rarity": "Raridade",
+    "filter_country": "País",
+    "filter_all": "Todas as raridades",
+    "sort_newest": "Mais Recentes",
+    "sort_price_asc": "Preço: Menor para Maior",
+    "sort_price_desc": "Preço: Maior para Menor",
+    "sort_rarity": "Raridade",
+    "buy_now": "Comprar",
+    "make_offer": "Fazer Oferta",
+    "listed_by": "por",
+    "no_results": "Nenhuma carta encontrada.",
+    "price_label": "Preço"
+  },
+  "Upload": {
+    "title": "Envie sua Foto",
+    "subtitle": "Transforme seu melhor momento da Copa em uma carta colecionável",
+    "drop_here": "Solte sua foto aqui",
+    "or_browse": "ou clique para procurar",
+    "select_match": "Selecione um jogo",
+    "caption_label": "Legenda (opcional)",
+    "caption_placeholder": "O que está acontecendo nessa foto?",
+    "submit": "Criar Minha Carta",
+    "uploading": "Criando sua carta...",
+    "success_title": "Sua carta está pronta!",
+    "success_cta": "Ver no Álbum",
+    "photo_tips": "Melhores fotos: gols, comemorações, reações dos torcedores, atmosfera do estádio.",
+    "max_size": "JPG, PNG ou WEBP — máx 20 MB"
+  },
+  "Card": {
+    "rarity_common": "Comum",
+    "rarity_rare": "Rara",
+    "rarity_epic": "Épica",
+    "rarity_legendary": "Lendária",
+    "by": "por",
+    "view": "Ver",
+    "trade": "Trocar",
+    "sell": "Colocar à Venda",
+    "mint_nft": "Mintar como NFT",
+    "serial": "#{serial}/{total}"
+  },
+  "Pack": {
+    "title": "Abertura de Pacote",
+    "click_to_open": "Toque para abrir seu pacote",
+    "revealing": "Revelando...",
+    "done": "Ver Meu Álbum",
+    "share": "Compartilhar"
+  }
+}
