@@ -14,9 +14,9 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations('Landing');
 
   const steps = [
-    { icon: '📸', title: t('step1_title'), desc: t('step1_desc') },
-    { icon: '⭐', title: t('step2_title'), desc: t('step2_desc') },
-    { icon: '🔄', title: t('step3_title'), desc: t('step3_desc') },
+    { title: t('step1_title'), desc: t('step1_desc') },
+    { title: t('step2_title'), desc: t('step2_desc') },
+    { title: t('step3_title'), desc: t('step3_desc') },
   ];
 
   const rarities: Rarity[] = ['common', 'rare', 'epic', 'legendary'];
@@ -141,7 +141,7 @@ export default async function HomePage({ params }: Props) {
 
                     {/* Icon */}
                     <div className="flex items-center justify-center py-8 sm:py-10">
-                      <span className="text-5xl sm:text-6xl">{step.icon}</span>
+                      <StepIcon index={i} />
                     </div>
 
                     {/* Content */}
@@ -213,6 +213,40 @@ export default async function HomePage({ params }: Props) {
         </div>
       </footer>
     </>
+  );
+}
+
+/* ── Step icons (SVG, rarity-colored) ── */
+function StepIcon({ index }: { index: number }) {
+  if (index === 0) return (
+    // Camera — Rare/blue
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 64, height: 64 }}>
+      <rect x="4" y="14" width="40" height="28" rx="5" stroke="#3b82f6" strokeWidth="2.5" fill="rgba(59,130,246,0.12)" />
+      <path d="M16 14v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx="24" cy="28" r="7" stroke="#3b82f6" strokeWidth="2.5" fill="rgba(59,130,246,0.15)" />
+      <circle cx="24" cy="28" r="3" fill="#3b82f6" fillOpacity="0.5" />
+      <circle cx="36" cy="21" r="2" fill="#3b82f6" />
+    </svg>
+  );
+  if (index === 1) return (
+    // Trophy — Epic/purple
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 64, height: 64 }}>
+      <path d="M24 34v6" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M16 44h16" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M14 8H8v4c0 5 3 9 6.5 10.5" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M34 8h6v4c0 5-3 9-6.5 10.5" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14 8h20v14c0 5.5-4.5 12-10 12s-10-6.5-10-12V8z" stroke="#a855f7" strokeWidth="2.5" fill="rgba(168,85,247,0.12)" />
+      <path d="M20 22l2 2 6-6" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+  // Exchange arrows — Legendary/gold
+  return (
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 64, height: 64 }}>
+      <path d="M8 16h28" stroke="#ffd700" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M30 10l6 6-6 6" stroke="#ffd700" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M40 32H12" stroke="#ffd700" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M18 26l-6 6 6 6" stroke="#ffd700" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 
