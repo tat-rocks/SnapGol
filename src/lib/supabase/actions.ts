@@ -1,6 +1,6 @@
 'use server';
 
-import Anthropic from '@anthropic-ai/sdk';
+import Groq from 'groq-sdk';
 import { createClient } from './server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -8,38 +8,38 @@ import { headers } from 'next/headers';
 import type { Rarity, SnapCard } from '@/lib/types';
 
 async function validateSoccerPhoto(file: File): Promise<{ ok: boolean; reason?: string }> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return { ok: true }; // skip validation if key not set
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) return { ok: true };
 
   try {
     const buffer = await file.arrayBuffer();
     const base64 = Buffer.from(buffer).toString('base64');
-    const mediaType = (file.type || 'image/jpeg') as 'image/jpeg' | 'image/png' | 'image/webp' | 'image/gif';
+    const mediaType = file.type || 'image/jpeg';
 
-    const client = new Anthropic({ apiKey });
-    const msg = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+    const client = new Groq({ apiKey });
+    const msg = await client.chat.completions.create({
+      model: 'meta-llama/llama-4-scout-17b-16e-instruct',
       max_tokens: 64,
       messages: [{
         role: 'user',
         content: [
-          { type: 'image', source: { type: 'base64', media_type: mediaType, data: base64 } },
+          { type: 'image_url', image_url: { url: `data:${mediaType};base64,${base64}` } },
           {
             type: 'text',
-            text: 'Is this photo related to soccer / football (players, stadium, match, ball, referee, fans at a game, pitch, goal, etc.)? Reply with exactly: YES or NO, then one short sentence reason.',
+            text: 'Is this photo related to soccer / football (players, stadium, match, ball, referee, fans at a game, pitch, goal)? Reply only: YES or NO, then one short reason.',
           },
         ],
       }],
     });
 
-    const text = (msg.content[0] as { type: string; text: string }).text.trim().toUpperCase();
+    const text = (msg.choices[0]?.message?.content ?? '').trim().toUpperCase();
     if (text.startsWith('NO')) {
       const reason = text.replace(/^NO[.,:\s-]*/i, '').trim() || 'La foto no parece ser del Mundial.';
       return { ok: false, reason: `Solo fotos del Mundial. ${reason}` };
     }
     return { ok: true };
   } catch {
-    return { ok: true }; // fail open — don't block uploads if AI is down
+    return { ok: true }; // fail open if AI is down
   }
 }
 
