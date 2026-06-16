@@ -28,6 +28,13 @@ export async function signInWithGoogle() {
   if (data.url) redirect(data.url);
 }
 
+export async function signInWithPassword(email: string, password: string) {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) throw error;
+  redirect('/en/album');
+}
+
 export async function signInWithMagicLink(email: string) {
   const supabase = await createClient();
   const base = await siteUrl();

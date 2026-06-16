@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { signInWithGoogle, signInWithMagicLink } from '@/lib/supabase/actions';
+import { signInWithGoogle, signInWithMagicLink, signInWithPassword } from '@/lib/supabase/actions';
 
 interface Props {
   onClose: () => void;
@@ -10,17 +10,33 @@ interface Props {
 
 export default function AuthModal({ onClose }: Props) {
   const t = useTranslations('Nav');
-  const [email, setEmail]     = useState('');
-  const [sent, setSent]       = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail]       = useState('');
+  const [password, setPassword] = useState('');
+  const [mode, setMode]         = useState<'magic' | 'password'>('magic');
+  const [sent, setSent]         = useState(false);
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState('');
 
   async function handleMagicLink(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); setError('');
     try {
       await signInWithMagicLink(email);
       setSent(true);
+    } catch (err: any) {
+      setError(err.message ?? 'Error sending link');
     } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handlePassword(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true); setError('');
+    try {
+      await signInWithPassword(email, password);
+    } catch (err: any) {
+      setError(err.message ?? 'Invalid credentials');
       setLoading(false);
     }
   }
@@ -28,7 +44,7 @@ export default function AuthModal({ onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="w-full max-w-sm rounded-2xl bg-sg-surface border border-white/10 p-6 space-y-6">
+      <div className="w-full max-w-sm rounded-2xl bg-sg-surface border border-white/10 p-6 space-y-5">
 
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -45,7 +61,7 @@ export default function AuthModal({ onClose }: Props) {
           <div className="text-center space-y-3 py-4">
             <div className="text-4xl">📬</div>
             <p className="text-white font-semibold">Magic link sent!</p>
-            <p className="text-white/40 text-sm">Check <strong className="text-white/60">{email}</strong> and click the link to sign in.</p>
+            <p className="text-white/40 text-sm">Check <strong className="text-white/60">{email}</strong> and click the link.</p>
           </div>
         ) : (
           <>
@@ -71,25 +87,50 @@ export default function AuthModal({ onClose }: Props) {
               <div className="flex-1 h-px bg-white/10" />
             </div>
 
-            {/* Magic link */}
-            <form onSubmit={handleMagicLink} className="space-y-3">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                required
-                className="w-full bg-sg-surface-2 border border-white/10 text-white rounded-xl
-                           px-4 py-3 text-sm placeholder:text-white/20 outline-none
-                           focus:border-sg-green/40 transition-colors"
-              />
-              <button type="submit" disabled={loading}
-                className="w-full py-3 rounded-xl font-bold text-sg-bg text-sm
-                           disabled:opacity-50 transition-all"
-                style={{ background: 'linear-gradient(135deg, #009624, #00c853)' }}>
-                {loading ? 'Sending…' : 'Send Magic Link ✦'}
+            {/* Mode toggle */}
+            <div className="flex rounded-lg bg-sg-surface-2 p-0.5 text-xs font-semibold">
+              <button
+                onClick={() => setMode('magic')}
+                className={`flex-1 py-1.5 rounded-md transition-colors ${mode === 'magic' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/60'}`}
+              >
+                Magic Link
               </button>
-            </form>
+              <button
+                onClick={() => setMode('password')}
+                className={`flex-1 py-1.5 rounded-md transition-colors ${mode === 'password' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/60'}`}
+              >
+                Password
+              </button>
+            </div>
+
+            {mode === 'magic' ? (
+              <form onSubmit={handleMagicLink} className="space-y-3">
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com" required
+                  className="w-full bg-sg-surface-2 border border-white/10 text-white rounded-xl px-4 py-3 text-sm placeholder:text-white/20 outline-none focus:border-sg-green/40 transition-colors" />
+                {error && <p className="text-red-400 text-xs">{error}</p>}
+                <button type="submit" disabled={loading}
+                  className="w-full py-3 rounded-xl font-bold text-sg-bg text-sm disabled:opacity-50"
+                  style={{ background: 'linear-gradient(135deg, #009624, #00c853)' }}>
+                  {loading ? 'Sending…' : 'Send Magic Link ✦'}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handlePassword} className="space-y-3">
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com" required
+                  className="w-full bg-sg-surface-2 border border-white/10 text-white rounded-xl px-4 py-3 text-sm placeholder:text-white/20 outline-none focus:border-sg-green/40 transition-colors" />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password" required
+                  className="w-full bg-sg-surface-2 border border-white/10 text-white rounded-xl px-4 py-3 text-sm placeholder:text-white/20 outline-none focus:border-sg-green/40 transition-colors" />
+                {error && <p className="text-red-400 text-xs">{error}</p>}
+                <button type="submit" disabled={loading}
+                  className="w-full py-3 rounded-xl font-bold text-sg-bg text-sm disabled:opacity-50"
+                  style={{ background: 'linear-gradient(135deg, #009624, #00c853)' }}>
+                  {loading ? 'Signing in…' : 'Sign In →'}
+                </button>
+              </form>
+            )}
           </>
         )}
 
