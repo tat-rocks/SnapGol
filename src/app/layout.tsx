@@ -13,13 +13,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'SnapGol — Capture the World Cup',
+  title: {
+    default: 'SnapGol — Capture the World Cup',
+    template: '%s | SnapGol',
+  },
   description:
-    'The world\'s first fan-powered World Cup digital sticker collection. Upload your best photos, earn rare cards, complete your album.',
+    "The world's first fan-powered World Cup 2026 digital sticker collection. Upload your best photos, earn rare cards, complete your album and trade with fans worldwide.",
+  keywords: ['World Cup 2026', 'digital stickers', 'collectible cards', 'NFT', 'football', 'soccer', 'album', 'SnapGol'],
+  authors: [{ name: 'SnapGol' }],
+  creator: 'SnapGol',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://snap-1x4vchlwa-tat-rocks.vercel.app'),
   openGraph: {
-    title: 'SnapGol',
-    description: 'Snap. Collect. Trade.',
+    type: 'website',
     siteName: 'SnapGol',
+    title: 'SnapGol — Snap. Collect. Trade.',
+    description:
+      "The world's first fan-powered World Cup 2026 digital sticker collection. Upload photos, earn rare cards, complete your album.",
+    url: '/',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SnapGol — Snap. Collect. Trade.',
+    description:
+      "The world's first fan-powered World Cup 2026 digital sticker collection. Upload photos, earn rare cards, complete your album.",
+    creator: '@snapgol',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
