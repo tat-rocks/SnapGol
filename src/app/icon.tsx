@@ -14,55 +14,54 @@ export default function Icon() {
           alignItems: 'center',
           justifyContent: 'center',
           background: '#06080f',
-          borderRadius: 13,
-          position: 'relative',
+          borderRadius: 12,
         }}
       >
-        {/* Gold glow behind card */}
+        {/* Glow */}
         <div style={{
           position: 'absolute',
-          width: 52,
-          height: 52,
+          width: 60,
+          height: 60,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,215,0,0.25), transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,215,0,0.22), transparent 65%)',
           display: 'flex',
         }} />
 
-        {/* Legendary card — tilted like in the hero */}
+        {/* Legendary card — exact replica of HeroCards legendary, scaled & rotated 6deg */}
         <div
           style={{
-            width: 38,
-            height: 52,
-            background: 'linear-gradient(135deg, #78350f, #d97706)',
-            border: '1.5px solid #ffd700',
-            borderRadius: 6,
+            width: 40,
+            height: 56,
+            background: 'linear-gradient(135deg, rgb(120, 53, 15), rgb(217, 119, 6))',
+            border: '2px solid rgb(255, 215, 0)',
+            borderRadius: 7,
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
-            transform: 'rotate(8deg)',
-            boxShadow: '0 2px 14px rgba(255,215,0,0.55)',
+            transform: 'rotate(6deg)',
+            boxShadow: 'rgba(255,215,0,0.5) 0px 0px 12px, rgba(255,215,0,0.15) 0px 0px 24px',
             position: 'relative',
           }}
         >
-          {/* Shimmer */}
+          {/* Shimmer overlay */}
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(135deg, transparent 25%, rgba(255,215,0,0.18) 50%, transparent 75%)',
+            background: 'linear-gradient(135deg, transparent 30%, rgba(255,215,0,0.08) 50%, transparent 70%)',
             display: 'flex',
           }} />
 
-          {/* Header — flags */}
+          {/* Header: 🇧🇷 BRA — ARG 🇦🇷 */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             padding: '2px 4px',
-            borderBottom: '1px solid rgba(255,215,0,0.3)',
-            fontSize: 8,
-            lineHeight: 1,
+            borderBottom: '1px solid rgba(255,255,255,0.1)',
+            fontSize: 5,
+            color: 'rgba(255,255,255,0.5)',
           }}>
-            <span>🇧🇷</span>
-            <span>🇦🇷</span>
+            <span>🇧🇷 BRA</span>
+            <span>ARG 🇦🇷</span>
           </div>
 
           {/* Ball */}
@@ -71,23 +70,33 @@ export default function Icon() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 18,
+            fontSize: 16,
+            opacity: 0.3,
           }}>⚽</div>
 
-          {/* LEGENDARY badge */}
+          {/* Footer: ★ Legendary badge + #042 */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            padding: '2px 0',
-            background: 'rgba(255,215,0,0.22)',
-            borderTop: '1px solid rgba(255,215,0,0.4)',
-            fontSize: 5,
-            fontWeight: 900,
-            color: '#ffd700',
-            letterSpacing: 0.3,
+            justifyContent: 'space-between',
+            padding: '2px 4px',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
           }}>
-            LEGENDARY
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              background: 'rgba(255,215,0,0.13)',
+              border: '1px solid rgba(255,215,0,0.4)',
+              borderRadius: 20,
+              padding: '1px 3px',
+              fontSize: 4,
+              fontWeight: 900,
+              color: '#ffd700',
+            }}>
+              <span>★</span><span>Legendary</span>
+            </div>
+            <span style={{ fontSize: 4, color: 'rgba(255,255,255,0.3)' }}>#042</span>
           </div>
         </div>
       </div>
