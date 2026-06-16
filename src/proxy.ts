@@ -9,5 +9,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+  matcher: ['/((?!icon|apple-icon|opengraph-image|manifest|sitemap|robots|api|_next|_vercel|.*\\..*).*)'],
 };
