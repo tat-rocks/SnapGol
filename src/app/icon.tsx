@@ -13,8 +13,6 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#06080f',
-          borderRadius: 12,
         }}
       >
         {/* Card — fills most of the canvas, thick border, big ball */}
