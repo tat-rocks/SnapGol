@@ -292,6 +292,23 @@ export async function openPack(packType: string = 'standard'): Promise<SnapCard[
   return results;
 }
 
+export async function submitPrediction(matchId: string, type: string, value: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const { data, error } = await supabase
+    .from('predictions')
+    .upsert({ user_id: user.id, match_id: matchId, type, value }, { onConflict: 'user_id,match_id,type' })
+    .select()
+    .single();
+
+  if (error) throw error;
+
+
+  return data;
+}
+
 export async function deleteCard(cardId: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

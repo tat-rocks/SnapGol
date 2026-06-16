@@ -1,5 +1,46 @@
 export type Rarity = 'common' | 'rare' | 'epic' | 'legendary';
 export type Stage = 'groups' | 'round-of-16' | 'quarter-final' | 'semi-final' | 'final';
+export type MatchStatus = 'upcoming' | 'live' | 'finished';
+export type PredictionType = 'winner' | 'ft_score' | 'first_goal';
+
+export interface MatchFull {
+  id: string;
+  team_a: string;
+  team_b: string;
+  flag_a: string;
+  flag_b: string;
+  match_date: string;
+  match_time: string;
+  status: MatchStatus;
+  score_a: number | null;
+  score_b: number | null;
+  venue: string;
+  city: string;
+  group_name: string | null;
+  stage: string;
+}
+
+export interface Prediction {
+  id: string;
+  user_id: string;
+  match_id: string;
+  type: PredictionType;
+  value: string;
+  resolved: boolean;
+  correct: boolean | null;
+  points_earned: number;
+  created_at: string;
+}
+
+export interface PhotoSlot {
+  id: string;
+  user_id: string;
+  match_id: string;
+  prediction_id: string;
+  used: boolean;
+  card_id: string | null;
+  created_at: string;
+}
 
 export interface SnapCard {
   id: string;

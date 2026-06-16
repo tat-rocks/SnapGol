@@ -48,14 +48,15 @@ export default function Header({ user }: { user?: { email?: string } | null }) {
             <Link href="/" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-md hover:bg-white/5">
               {t('home')}
             </Link>
+            <Link href="/matches" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-md hover:bg-white/5 flex items-center gap-1.5">
+              Partidos
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+            </Link>
             <Link href="/album" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-md hover:bg-white/5">
               {t('album')}
             </Link>
             <Link href="/marketplace" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-md hover:bg-white/5">
               {t('marketplace')}
-            </Link>
-            <Link href="/upload" className="px-3 py-1.5 text-sm text-white/60 hover:text-white transition-colors rounded-md hover:bg-white/5">
-              {t('upload')}
             </Link>
           </nav>
 
@@ -122,9 +123,9 @@ export default function Header({ user }: { user?: { email?: string } | null }) {
           <div className="md:hidden py-3 border-t border-white/5 flex flex-col gap-1">
             {[
               { href: '/', label: t('home') },
+              { href: '/matches', label: 'Partidos' },
               { href: '/album', label: t('album') },
               { href: '/marketplace', label: t('marketplace') },
-              { href: '/upload', label: t('upload') },
               { href: '/pack', label: t('openPack') },
             ].map(({ href, label }) => (
               <Link
